@@ -24,5 +24,3 @@ for i in range(lon):
 		dat=data[0,0,i,j]
 		print(dat)#出力
 
-#出力
-print(data)
