@@ -19,5 +19,10 @@ altitude = 1
 #データを読み込む
 data=nc.variables['chlor_a'][:]
 
+for i in range(lon):
+	for j in range(lat):
+		dat=data[0,0,i,j]
+		print(dat)#出力
+
 #出力
 print(data)
