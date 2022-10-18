@@ -32,7 +32,7 @@ variables:
 		ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 		＊＊ここ重要！！データです！！
 		ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-	float chlor_a(time, altitude, lat, lon) ;格納方式(1,1,lat,lon)
+	float chlor_a(time, altitude, lat, lon) ;格納方式(0,0,lat,lon)
 		chlor_a:units = "mg m^-3" ;
 		chlor_a:standard_name = "mass_concentration_of_chlorophyll_a_in_sea_water" ;
 		chlor_a:_FillValue = -999.f ;
