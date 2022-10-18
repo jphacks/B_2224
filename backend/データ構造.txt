@@ -1,0 +1,78 @@
+データ構造
+dimensions:
+	lat = 2160 ;
+	lon = 4320 ;
+	rgb = 3 ;
+	eightbitcolor = 256 ;
+	time = 1 ;
+	altitude = 1 ;
+variables:
+	int coord_ref ;説明用変数だと思うー
+		coord_ref:grid_mapping_name = "latitude_longitude" ;
+		coord_ref:epsg_code = "EPSG:4326" ;
+		coord_ref:proj4_params = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs" ;
+		coord_ref:semi_major_axis = 6378137.f ;
+		coord_ref:inverse_flattening = 298.2572f ;
+		coord_ref:longitude_of_prime_meridian = 0.f ;
+	double time(time) ;時間(使わない)
+		time:standard_name = "time" ;
+		time:long_name = "Time" ;
+		time:_CoordinateAxisType = "Time" ;
+		time:axis = "T" ;
+		time:ioos_category = "Time" ;
+		time:calendar = "gregorian" ;
+		time:units = "seconds since 1970-01-01 00:00:00Z" ;
+	double altitude(altitude) ;高度(使わない)
+		altitude:standard_name = "height" ;
+		altitude:long_name = "Altitude" ;
+		altitude:_CoordinateAxisType = "Height" ;
+		altitude:axis = "Z" ;
+		altitude:positive = "up" ;
+		altitude:units = "m" ;
+		ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+		＊＊ここ重要！！データです！！
+		ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+	float chlor_a(time, altitude, lat, lon) ;
+		chlor_a:units = "mg m^-3" ;
+		chlor_a:standard_name = "mass_concentration_of_chlorophyll_a_in_sea_water" ;
+		chlor_a:_FillValue = -999.f ;
+		chlor_a:valid_min = 0.001f ;
+		chlor_a:valid_max = 100.f ;
+		chlor_a:reference = "O\\\'Reilly J. E. et al. (1998), Ocean color chlorophyll algorithms for SeaWiFS, J. Geophys. Res., 103(C11), 2493724953" ;
+		chlor_a:display_scale = "log" ;
+		chlor_a:display_min = 0.01f ;
+		chlor_a:display_max = 20.f ;
+		chlor_a:grid_mapping = "coord_ref" ;
+		chlor_a:long_name = "Chlorophyll Concentration, DINEOF Gap-Filled" ;
+		chlor_a:C_format = "%.4g" ;
+		chlor_a:ioos_category = "Ocean Color" ;
+		chlor_a:cell_methods = "time:mean" ;
+		chlor_a:coverage_content_type = "physicalMeasurement" ;
+	float lat(lat) ;
+		lat:long_name = "Latitude" ;
+		lat:units = "degree_north" ;
+		lat:valid_min = -90.f ;
+		lat:valid_max = 90.f ;
+		lat:standard_name = "latitude" ;
+		lat:ioos_category = "Location" ;
+		lat:_CoordinateAxisType = "Lat" ;
+		lat:axis = "Y" ;
+	float lon(lon) ;
+		lon:long_name = "Longitude" ;
+		lon:units = "degree_east" ;
+		lon:valid_min = -180.f ;
+		lon:valid_max = 180.f ;
+		lon:standard_name = "longitude" ;
+		lon:ioos_category = "Location" ;
+		lon:_CoordinateAxisType = "Lon" ;
+		lon:axis = "X" ;
+	ubyte palette(rgb, eightbitcolor) ;
+	// global attributes:
+		:product_name = "B2022001_A1_WW00_chlora.nc" ;
+		:instrument = "VIIRS, OLCI" ;
+		:title = "DINEOF gap filled L4 data" ;
+		:project = "Ocean Color Science Team (NOAA/NESDIS/STAR/OCST)" ;
+		:platform = "Suomi-NPP, NOAA-20, Sentinel-3A" ;
+		:temporal_range = "daily" ;
+		:processing_version = "Unspecified" ;
+		:date_created = "2022-09-12T11:12:54.000Z" ;
