@@ -8,7 +8,7 @@
  * @format
  */
 
-import React, {PropsWithChildren} from 'react';
+import React, {PropsWithChildren, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -26,6 +26,8 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import {Searchbar} from 'react-native-paper'
 
 const Section: React.FC<
   PropsWithChildren<{
@@ -57,6 +59,19 @@ const Section: React.FC<
   );
 };
 
+const SearchBar = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const onChangeSearch = query => setSearchQuery(query);
+  return (
+   <Searchbar
+      placeholder="Search"
+      onChangeText={onChangeSearch}
+      value={searchQuery}
+    />
+    )
+  }
+
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -78,6 +93,7 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
+      <SearchBar />
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
