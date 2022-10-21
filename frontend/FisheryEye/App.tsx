@@ -8,7 +8,7 @@
  * @format
  */
 
-import React, {PropsWithChildren, useState} from 'react';
+import React, {PropsWithChildren, useEffect, useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -28,6 +28,10 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import {Searchbar} from 'react-native-paper'
+
+import MapboxGL from '@rnmapbox/maps'
+
+MapboxGL.setAccessToken(process.env.REACT_APP_ACCESS_TOKEN);
 
 const Section: React.FC<
   PropsWithChildren<{
@@ -62,15 +66,33 @@ const Section: React.FC<
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  const onChangeSearch = query => setSearchQuery(query);
+  const onChangeSearch = (query: string) => setSearchQuery(query);
   return (
-   <Searchbar
+    <Searchbar
       placeholder="Search"
       onChangeText={onChangeSearch}
       value={searchQuery}
     />
-    )
+  )
+}
+
+
+const MapStyles = StyleSheet.create({
+  page: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF"
+  },
+  container: {
+    height: 300,
+    width: 300,
+    backgroundColor: "tomato"
+  },
+  map: {
+    flex: 1
   }
+});
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -78,6 +100,10 @@ const App = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  useEffect(() => {
+    MapboxGL.setTelemetryEnabled(false)
+  })
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -93,7 +119,7 @@ const App = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-      <SearchBar />
+          <SearchBar />
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
@@ -108,6 +134,11 @@ const App = () => {
             Read the docs to discover what to do next:
           </Section>
           <LearnMoreLinks />
+          <View style={MapStyles.page}>
+            <View style={MapStyles.container}>
+              <MapboxGL.MapView style={MapStyles.map} />
+            </View>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
