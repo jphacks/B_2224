@@ -27,11 +27,26 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import {Searchbar} from 'react-native-paper'
+import {Appbar, Searchbar} from 'react-native-paper'
 
 import MapboxGL from '@rnmapbox/maps'
 
 MapboxGL.setAccessToken(process.env.REACT_APP_ACCESS_TOKEN);
+
+const FEHeader = () => {
+  const _goBack = () => console.log('Went back');
+
+
+  const _handleMore = () => console.log('Shown more');
+
+  return (
+    <Appbar.Header>
+      <Appbar.BackAction onPress={_goBack} />
+      <Appbar.Content title="Fishery Eye" />
+      <Appbar.Action icon="dots-vertical" onPress={_handleMore} />
+    </Appbar.Header>
+  );
+}
 
 const Section: React.FC<
   PropsWithChildren<{
@@ -85,8 +100,8 @@ const MapStyles = StyleSheet.create({
     backgroundColor: "#F5FCFF"
   },
   container: {
-    height: 300,
-    width: 300,
+    height: 600,
+    width: '100%',
     backgroundColor: "tomato"
   },
   map: {
@@ -105,35 +120,59 @@ const App = () => {
     MapboxGL.setTelemetryEnabled(false)
   })
 
+  // return (
+  //   <SafeAreaView style={backgroundStyle}>
+  //     <StatusBar
+  //       barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+  //       backgroundColor={backgroundStyle.backgroundColor}
+  //     />
+  //     <ScrollView
+  //       contentInsetAdjustmentBehavior="automatic"
+  //       style={backgroundStyle}>
+  //       <FEHeader />
+  //       <View
+  //         style={{
+  //           backgroundColor: isDarkMode ? Colors.black : Colors.white,
+  //         }}>
+  //         <SearchBar />
+  //         <Section title="Step One">
+  //           Edit <Text style={styles.highlight}>App.tsx</Text> to change this
+  //           screen and then come back to see your edits.
+  //         </Section>
+  //         <Section title="See Your Changes">
+  //           <ReloadInstructions />
+  //         </Section>
+  //         <Section title="Debug">
+  //           <DebugInstructions />
+  //         </Section>
+  //         <Section title="Learn More">
+  //           Read the docs to discover what to do next:
+  //         </Section>
+  //         <LearnMoreLinks />
+  //         <View style={MapStyles.page}>
+  //           <View style={MapStyles.container}>
+  //             <MapboxGL.MapView style={MapStyles.map} />
+  //           </View>
+  //         </View>
+  //       </View>
+  //     </ScrollView>
+  //   </SafeAreaView>
+  // );
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
+      <FEHeader />
+      <SearchBar />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <SearchBar />
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
           <View style={MapStyles.page}>
             <View style={MapStyles.container}>
               <MapboxGL.MapView style={MapStyles.map} />
@@ -143,6 +182,7 @@ const App = () => {
       </ScrollView>
     </SafeAreaView>
   );
+
 };
 
 const styles = StyleSheet.create({
